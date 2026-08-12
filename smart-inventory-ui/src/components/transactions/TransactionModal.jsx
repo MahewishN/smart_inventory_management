@@ -89,7 +89,9 @@ function TransactionModal({
 
       console.error(error);
 
-      alert("Failed to create transaction");
+      const message = error.response?.data?.message || "Failed to create transaction";
+
+      alert(message);
 
     }
 

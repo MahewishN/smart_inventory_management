@@ -2,7 +2,6 @@ import { login } from "../../services/authService";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-
 import { useState } from "react";
 import {
     Package,
@@ -33,30 +32,30 @@ function Login() {
 
         const response = await login(email, password);
 
-console.log("Login Response:", response);
+        console.log("Login Response:", response);
 
-saveLogin(
-  {
-    userId: response.userId,
-    fullName: response.fullName,
-    email: response.email,
-    role: response.role,
-  },
-  response.token
-);
+        saveLogin(
+        {
+            userId: response.userId,
+            fullName: response.fullName,
+            email: response.email,
+            role: response.role,
+        },
+        response.token
+    );
 
-console.log("Saved to Context");
+    console.log("Saved to Context");
 
-navigate("/dashboard");
+    navigate("/dashboard");
 
-console.log("Navigated");
+    console.log("Navigated");
 
     } catch (error) {
-    console.log("Status:", error.response?.status);
-    console.log("Response Data:", error.response?.data);
-    console.log("Headers:", error.response?.headers);
-    console.log("Full Error:", error);
-}
+        console.log("Status:", error.response?.status);
+        console.log("Response Data:", error.response?.data);
+        console.log("Headers:", error.response?.headers);
+        console.log("Full Error:", error);
+    }
 
 };
     return (

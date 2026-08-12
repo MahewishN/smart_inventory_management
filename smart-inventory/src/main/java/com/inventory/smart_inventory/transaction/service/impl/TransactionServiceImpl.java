@@ -16,6 +16,7 @@ import com.inventory.smart_inventory.transaction.service.TransactionService;
 import com.inventory.smart_inventory.user.entity.User;
 import com.inventory.smart_inventory.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import com.inventory.smart_inventory.notification.service.NotificationService;
 
 import java.util.List;
 
@@ -25,14 +26,17 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepository transactionRepository;
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
+    private final NotificationService notificationService;
 
     public TransactionServiceImpl(TransactionRepository transactionRepository,
                                   ProductRepository productRepository,
-                                  UserRepository userRepository)
+                                  UserRepository userRepository,
+                                  NotificationService notificationService)
     {
         this.transactionRepository = transactionRepository;
         this.productRepository = productRepository;
         this.userRepository = userRepository;
+        this.notificationService = notificationService;
     }
 
 
@@ -69,6 +73,10 @@ public class TransactionServiceImpl implements TransactionService {
 
         InventoryTransaction savedTransaction = transactionRepository.save(transaction);
 
+        if (request.getTransactionType() == TransactionType.SALE && request.getQuantity() >= 20)
+        {
+            notificationService.createBulkOrderNotification(user, product, request.getQuantity());
+        }
         return mapToResponse(savedTransaction);
     }
 

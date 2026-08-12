@@ -1,8 +1,7 @@
 package com.inventory.smart_inventory.user.service;
 
-import com.inventory.smart_inventory.user.dto.CreateUserRequest;
-import com.inventory.smart_inventory.user.dto.UpdateUserRequest;
-import com.inventory.smart_inventory.user.dto.UserResponse;
+import com.inventory.smart_inventory.user.dto.*;
+
 import java.util.List;
 
 public interface UserService {
@@ -13,4 +12,8 @@ public interface UserService {
     UserResponse updateUser(Long id, UpdateUserRequest request);
     void deactivateUser(Long id);
     void activateUser(Long id);
+
+    ProfileResponse getMyProfile(String email);
+    ProfileResponse updateMyProfile(String email, UpdateProfileRequest request);
+    void changePassword(String email, ChangePasswordRequest request);
 }

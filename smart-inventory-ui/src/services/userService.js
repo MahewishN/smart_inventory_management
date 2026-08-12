@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API_URL = "http://localhost:8080/api/users";
+const PROFILE_API_URL = "http://localhost:8080/api/profile";
 
 const getHeaders = () => ({
     headers: {
@@ -8,13 +9,26 @@ const getHeaders = () => ({
     },
 });
 
+// =====================================================
+// USER / ADMIN APIs
+// =====================================================
+
 export const getAllUsers = async () => {
-    const response = await axios.get(API_URL, getHeaders());
+    const response = await axios.get(
+        API_URL,
+        getHeaders()
+    );
+
     return response.data;
 };
 
 export const createUser = async (user) => {
-    const response = await axios.post(API_URL, user, getHeaders());
+    const response = await axios.post(
+        API_URL,
+        user,
+        getHeaders()
+    );
+
     return response.data;
 };
 
@@ -42,4 +56,37 @@ export const activateUser = async (id) => {
         {},
         getHeaders()
     );
+};
+
+// =====================================================
+// CURRENT USER PROFILE APIs
+// =====================================================
+
+export const getMyProfile = async () => {
+    const response = await axios.get(
+        PROFILE_API_URL,
+        getHeaders()
+    );
+
+    return response.data;
+};
+
+export const updateMyProfile = async (profileData) => {
+    const response = await axios.put(
+        PROFILE_API_URL,
+        profileData,
+        getHeaders()
+    );
+
+    return response.data;
+};
+
+export const changePassword = async (passwordData) => {
+    const response = await axios.put(
+        `${PROFILE_API_URL}/change-password`,
+        passwordData,
+        getHeaders()
+    );
+
+    return response.data;
 };

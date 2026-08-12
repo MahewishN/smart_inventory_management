@@ -1,9 +1,7 @@
 package com.inventory.smart_inventory.dashboard.service.impl;
 
 import com.inventory.smart_inventory.category.repository.CategoryRepository;
-import com.inventory.smart_inventory.dashboard.dto.DashboardSummaryResponse;
-import com.inventory.smart_inventory.dashboard.dto.DemandForecastResponse;
-import com.inventory.smart_inventory.dashboard.dto.RestockRecommendationResponse;
+import com.inventory.smart_inventory.dashboard.dto.*;
 import com.inventory.smart_inventory.dashboard.service.DashboardService;
 import com.inventory.smart_inventory.product.entity.Product;
 import com.inventory.smart_inventory.product.repository.ProductRepository;
@@ -98,8 +96,7 @@ public class DashboardServiceImpl implements DashboardService {
 
         int currentStock = productRepository.findByActiveTrue()
                 .stream()
-                .filter(product -> product.getActive())
-                .mapToInt(product-> product.getQuantity())
+                .mapToInt(Product::getQuantity)
                 .sum();
 
         List<InventoryTransaction> purchases = transactionRepository.findByTransactionType(TransactionType.PURCHASE);
@@ -123,4 +120,42 @@ public class DashboardServiceImpl implements DashboardService {
                 .totalSold(totalSold)
                 .build();
     }
+
+    @Override
+    public List<MonthlySalesResponse> getMonthlySales() {
+
+        return transactionRepository.getMonthlySales()
+                .stream()
+                .map(row -> new MonthlySalesResponse(
+                        (String) row[0],
+                        ((Number) row[1]).longValue()
+                ))
+                .toList();
+    }
+
+    @Override
+    public List<MonthlyPurchaseResponse> getMonthlyPurchases() {
+
+        return transactionRepository.getMonthlyPurchases()
+                .stream()
+                .map(row -> new MonthlyPurchaseResponse(
+                        (String) row[0],
+                        ((Number) row[1]).longValue()
+                ))
+                .toList();
+    }
+
+    @Override
+    public List<CategoryStockResponse> getStockDistributionByCategory() {
+        return productRepository.getStockDistributionByCategory();
+    }
+
+    @Override
+    public List<TopSellingProductResponse> getTopSellingProducts() {
+        return transactionRepository.getTopSellingProducts()
+                .stream()
+                .limit(5)
+                .toList();
+    }
+
 }

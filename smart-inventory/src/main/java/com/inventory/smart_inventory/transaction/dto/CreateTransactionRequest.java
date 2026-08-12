@@ -2,6 +2,7 @@ package com.inventory.smart_inventory.transaction.dto;
 
 import com.inventory.smart_inventory.transaction.entity.TransactionType;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Data
@@ -13,6 +14,7 @@ public class CreateTransactionRequest {
     private TransactionType transactionType;
 
     @NotNull(message = "Quantity is required")
+    @Positive(message = "Quantity must be greater than zero")
     private Integer quantity;
 
     @NotNull(message = "User is required")

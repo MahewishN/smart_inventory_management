@@ -69,7 +69,6 @@ public class CategoryServiceImpl implements CategoryService {
 
         category.setName(request.getName());
         category.setDescription((request.getDescription()));
-        category.setActive(request.getActive());
 
         Category updatedCategory = categoryRepository.save(category);
 

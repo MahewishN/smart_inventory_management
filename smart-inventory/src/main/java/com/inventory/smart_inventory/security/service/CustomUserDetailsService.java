@@ -3,6 +3,7 @@ package com.inventory.smart_inventory.security.service;
 import com.inventory.smart_inventory.exception.UserNotFoundException;
 import com.inventory.smart_inventory.user.entity.User;
 import com.inventory.smart_inventory.user.repository.UserRepository;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

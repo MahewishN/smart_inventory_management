@@ -25,9 +25,7 @@ public class CategoryController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<CategoryResponse> createCategory(
-            @Valid
-            @RequestBody
-            CreateCategoryRequest request)
+            @Valid @RequestBody CreateCategoryRequest request)
     {
         return ResponseEntity.ok(categoryService.createCategory(request));
     }
@@ -41,26 +39,22 @@ public class CategoryController {
 
     @PreAuthorize("hasAnyRole('ADMIN','EMPLOYEE')")
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryResponse> getCategoryById(
-            @PathVariable Long id)
+    public ResponseEntity<CategoryResponse> getCategoryById(@PathVariable Long id)
     {
         return ResponseEntity.ok(categoryService.getCategoryById(id));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryResponse> updateCategory(
-            @PathVariable Long id,
-            @Valid
-            @RequestBody UpdateCategoryRequest request)
+    public ResponseEntity<CategoryResponse> updateCategory(@PathVariable Long id,
+            @Valid @RequestBody UpdateCategoryRequest request)
     {
         return ResponseEntity.ok(categoryService.updateCategory(id,request));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{id}/deactivate")
-    public ResponseEntity<String> deactivateCategory(
-            @PathVariable Long id)
+    public ResponseEntity<String> deactivateCategory(@PathVariable Long id)
     {
         categoryService.deactivateCategory(id);
 
@@ -69,11 +63,9 @@ public class CategoryController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{id}/activate")
-    public ResponseEntity<String> activateCategory(
-            @PathVariable Long id)
+    public ResponseEntity<String> activateCategory(@PathVariable Long id)
     {
         categoryService.activateCategory(id);
-
         return ResponseEntity.ok("Category activated successfully");
     }
 }

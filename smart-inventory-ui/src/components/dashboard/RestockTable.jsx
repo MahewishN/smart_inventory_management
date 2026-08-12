@@ -1,73 +1,90 @@
 function RestockTable({ data }) {
     return (
-        <div className="bg-white rounded-xl shadow-md mt-8 overflow-hidden">
+        <div className="bg-white rounded-xl shadow-md overflow-hidden h-[420px] flex flex-col">
 
-            <div className="px-6 py-5 border-b">
+            {/* Header */}
+            <div className="px-6 py-5 border-b shrink-0">
                 <h2 className="text-xl font-bold">
                     Restock Recommendations
                 </h2>
             </div>
 
-            <table className="w-full">
+            {/* Scrollable Table */}
+            <div className="overflow-y-auto flex-1">
 
-                <thead className="bg-slate-100">
+                <table className="w-full">
 
-                    <tr>
-                        <th className="text-left p-4">Product</th>
-                        <th className="text-center p-4">Current</th>
-                        <th className="text-center p-4">Minimum</th>
-                        <th className="text-center p-4">Recommended</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    {data.length === 0 ? (
+                    <thead className="bg-slate-100 sticky top-0 z-10">
 
                         <tr>
-                            <td
-                                colSpan="4"
-                                className="text-center py-8 text-slate-500"
-                            >
-                                No products need restocking 🎉
-                            </td>
+                            <th className="text-left p-4">
+                                Product
+                            </th>
+
+                            <th className="text-center p-4">
+                                Current
+                            </th>
+
+                            <th className="text-center p-4">
+                                Minimum
+                            </th>
+
+                            <th className="text-center p-4">
+                                Recommended
+                            </th>
                         </tr>
 
-                    ) : (
+                    </thead>
 
-                        data.map(product => (
+                    <tbody>
 
-                            <tr
-                                key={product.productId}
-                                className="border-t hover:bg-slate-50"
-                            >
+                        {data.length === 0 ? (
 
-                                <td className="p-4 font-medium">
-                                    {product.productName}
+                            <tr>
+                                <td
+                                    colSpan="4"
+                                    className="text-center py-8 text-slate-500"
+                                >
+                                    No products need restocking 🎉
                                 </td>
-
-                                <td className="text-center">
-                                    {product.currentStock}
-                                </td>
-
-                                <td className="text-center">
-                                    {product.minimumStockLevel}
-                                </td>
-
-                                <td className="text-center font-bold text-red-600">
-                                    {product.recommendedRestockQuantity}
-                                </td>
-
                             </tr>
 
-                        ))
+                        ) : (
 
-                    )}
+                            data.map(product => (
 
-                </tbody>
+                                <tr
+                                    key={product.productId}
+                                    className="border-t hover:bg-slate-50"
+                                >
 
-            </table>
+                                    <td className="p-4 font-medium">
+                                        {product.productName}
+                                    </td>
+
+                                    <td className="text-center p-4">
+                                        {product.currentStock}
+                                    </td>
+
+                                    <td className="text-center p-4">
+                                        {product.minimumStockLevel}
+                                    </td>
+
+                                    <td className="text-center p-4 font-bold text-red-600">
+                                        {product.recommendedRestockQuantity}
+                                    </td>
+
+                                </tr>
+
+                            ))
+
+                        )}
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </div>
     );

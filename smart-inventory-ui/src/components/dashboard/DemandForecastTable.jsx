@@ -1,86 +1,101 @@
 function DemandForecastTable({ data }) {
-
     return (
+        <div className="bg-white rounded-xl shadow-md overflow-hidden h-[420px] flex flex-col">
 
-        <div className="bg-white rounded-xl shadow-md mt-8 overflow-hidden">
-
-            <div className="px-6 py-5 border-b">
-
+            {/* Header */}
+            <div className="px-6 py-5 border-b shrink-0">
                 <h2 className="text-xl font-bold">
                     Demand Forecast
                 </h2>
-
             </div>
 
-            <table className="w-full">
+            {/* Scrollable Table */}
+            <div className="overflow-y-auto flex-1">
 
-                <thead className="bg-slate-100">
+                <table className="w-full">
 
-                    <tr>
+                    <thead className="bg-slate-100 sticky top-0 z-10">
 
-                        <th className="text-left p-4">
-                            Product
-                        </th>
+                        <tr>
 
-                        <th className="text-center p-4">
-                            Current Stock
-                        </th>
+                            <th className="text-left p-4">
+                                Product
+                            </th>
 
-                        <th className="text-center p-4">
-                            Predicted Demand
-                        </th>
+                            <th className="text-center p-4">
+                                Current Stock
+                            </th>
 
-                        <th className="text-center p-4">
-                            Recommended Purchase
-                        </th>
+                            <th className="text-center p-4">
+                                Predicted Demand
+                            </th>
 
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    {data.map(product => (
-
-                        <tr
-                            key={product.productId}
-                            className="border-t hover:bg-slate-50"
-                        >
-
-                            <td className="p-4 font-medium">
-                                {product.productName}
-                            </td>
-
-                            <td className="text-center">
-                                {product.currentStock}
-                            </td>
-
-                            <td className="text-center">
-                                {product.predictedDemand}
-                            </td>
-
-                            <td
-                                className={`text-center font-bold ${
-                                    product.recommendedPurchase > 0
-                                        ? "text-red-600"
-                                        : "text-green-600"
-                                }`}
-                            >
-                                {product.recommendedPurchase}
-                            </td>
+                            <th className="text-center p-4">
+                                Recommended Purchase
+                            </th>
 
                         </tr>
 
-                    ))}
+                    </thead>
 
-                </tbody>
+                    <tbody>
 
-            </table>
+                        {data.length === 0 ? (
+
+                            <tr>
+                                <td
+                                    colSpan="4"
+                                    className="text-center py-8 text-slate-500"
+                                >
+                                    No demand forecast available.
+                                </td>
+                            </tr>
+
+                        ) : (
+
+                            data.map((product, index) => (
+
+                                <tr
+                                    key={`${product.productId}-${index}`}
+                                    className="border-t hover:bg-slate-50"
+                                >
+
+                                    <td className="p-4 font-medium">
+                                        {product.productName}
+                                    </td>
+
+                                    <td className="text-center p-4">
+                                        {product.currentStock}
+                                    </td>
+
+                                    <td className="text-center p-4">
+                                        {product.predictedDemand}
+                                    </td>
+
+                                    <td
+                                        className={`text-center p-4 font-bold ${
+                                            product.recommendedPurchase > 0
+                                                ? "text-red-600"
+                                                : "text-green-600"
+                                        }`}
+                                    >
+                                        {product.recommendedPurchase}
+                                    </td>
+
+                                </tr>
+
+                            ))
+
+                        )}
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </div>
-
     );
-
 }
 
 export default DemandForecastTable;

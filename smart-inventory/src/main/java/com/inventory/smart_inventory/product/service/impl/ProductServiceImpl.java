@@ -77,6 +77,13 @@ public class ProductServiceImpl implements ProductService{
         Product product = productRepository.findById(id)
                 .orElseThrow(()-> new ProductNotFoundException("Product not found"));
 
+        productRepository.findBySkuIgnoreCase(request.getSku())
+                .ifPresent(existingProduct -> {
+                    if (!existingProduct.getId().equals(id)) {
+                        throw new ProductAlreadyExistsException("Product SKU already exists");
+                    }
+                });
+
         Category category = categoryRepository.findById(request.getCategoryId())
                 .orElseThrow(()-> new CategoryNotFoundException("Category not found"));
 
@@ -85,10 +92,8 @@ public class ProductServiceImpl implements ProductService{
         product.setSku(request.getSku());
         product.setBrand(request.getBrand());
         product.setPrice(request.getPrice());
-        product.setQuantity(request.getQuantity());
         product.setMinimumStockLevel(request.getMinimumStockLevel());
         product.setCategory(category);
-        product.setActive(request.getActive());
 
         Product updatedProduct = productRepository.save(product);
 
@@ -109,7 +114,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public void activateProduct(Long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
 
         product.setActive(true);
         productRepository.save(product);
@@ -121,7 +126,7 @@ public class ProductServiceImpl implements ProductService{
                 .id(product.getId())
                 .name(product.getName())
                 .description(product.getDescription())
-                .sku(product.getDescription())
+                .sku(product.getSku())
                 .brand(product.getBrand())
                 .price(product.getPrice())
                 .quantity(product.getQuantity())

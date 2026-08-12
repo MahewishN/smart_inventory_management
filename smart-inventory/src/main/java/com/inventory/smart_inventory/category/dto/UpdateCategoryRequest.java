@@ -14,6 +14,4 @@ public class UpdateCategoryRequest {
     @NotBlank(message = "Description is required")
     private String description;
 
-    @NotNull(message = "Active status is required")
-    private Boolean active;
 }

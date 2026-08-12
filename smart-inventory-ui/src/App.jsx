@@ -6,6 +6,7 @@ import Products from "./pages/Products/Products";
 import Categories from "./pages/Categories/Categories";
 import Transactions from "./pages/Transactions/Transactions";
 import Employees from "./pages/Employees/Employees";
+import Profile from "./pages/Profile/Profile";
 
 import DashboardLayout from "./layouts/DashboardLayout";
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -33,11 +34,9 @@ function App() {
                 >
 
                     <Route path="/dashboard" element={<Dashboard />} />
-
+                    <Route path="/profile" element={<Profile />} />
                     <Route path="/products" element={<Products />} />
-
                     <Route path="/categories" element={<Categories />} />
-
                     <Route path="/transactions" element={<Transactions />} />
 
                     <Route

@@ -2,9 +2,7 @@ package com.inventory.smart_inventory.user.service.impl;
 
 import com.inventory.smart_inventory.exception.EmailAlreadyExistsException;
 import com.inventory.smart_inventory.exception.UserNotFoundException;
-import com.inventory.smart_inventory.user.dto.CreateUserRequest;
-import com.inventory.smart_inventory.user.dto.UpdateUserRequest;
-import com.inventory.smart_inventory.user.dto.UserResponse;
+import com.inventory.smart_inventory.user.dto.*;
 import com.inventory.smart_inventory.user.entity.User;
 import com.inventory.smart_inventory.user.repository.UserRepository;
 import com.inventory.smart_inventory.user.service.UserService;
@@ -62,8 +60,6 @@ public class UserServiceImpl implements UserService {
 
                 user.setFullName(request.getFullName());
                 user.setBranch(request.getBranch());
-                user.setRole(request.getRole());
-                user.setActive(request.getActive());
 
                 User updatedUser = userRepository.save(user);
                 return mapToResponse(updatedUser);
@@ -115,5 +111,54 @@ public class UserServiceImpl implements UserService {
                 .branch(user.getBranch())
                 .active(user.getActive())
                 .build();
+    }
+
+    @Override
+    public ProfileResponse getMyProfile(String email) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        return new ProfileResponse(
+                user.getId(),
+                user.getFullName(),
+                user.getEmail(),
+                user.getRole(),
+                user.getBranch()
+        );
+    }
+
+    @Override
+    public ProfileResponse updateMyProfile(String email, UpdateProfileRequest request) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        user.setFullName(request.getFullName());
+        user.setBranch(request.getBranch());
+
+        User updatedUser = userRepository.save(user);
+
+        return new ProfileResponse(
+                updatedUser.getId(),
+                updatedUser.getFullName(),
+                updatedUser.getEmail(),
+                updatedUser.getRole(),
+                updatedUser.getBranch()
+        );
+    }
+
+    @Override
+    public void changePassword(String email, ChangePasswordRequest request) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+            throw new RuntimeException("Current password is incorrect");
+        }
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
     }
 }
