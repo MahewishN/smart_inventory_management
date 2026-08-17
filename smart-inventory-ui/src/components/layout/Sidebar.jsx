@@ -34,11 +34,11 @@ function Sidebar() {
       {/* Logo */}
       <div className="p-6 border-b border-slate-700">
         <h1 className="text-2xl font-bold">
-          Inventra AI
+          StockFlow
         </h1>
 
         <p className="text-sm text-slate-400">
-          Inventory Intelligence
+          Smart Inventory Management 
         </p>
       </div>
 

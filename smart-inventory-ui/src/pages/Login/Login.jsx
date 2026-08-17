@@ -67,11 +67,11 @@ function Login() {
             <div className="hidden lg:flex flex-col justify-center px-20 bg-gradient-to-br from-blue-700 via-indigo-700 to-slate-900 text-white">
 
                 <h1 className="text-6xl font-extrabold">
-                    Inventra AI
+                    StockFlow
                 </h1>
 
                 <p className="mt-4 text-2xl text-blue-100">
-                    Inventory Intelligence Platform
+                    Smart Inventory Management System
                 </p>
 
                 <p className="mt-2 text-lg text-slate-300">
@@ -123,11 +123,11 @@ function Login() {
                         <div>
 
                             <h3 className="font-semibold text-xl">
-                                AI Forecasting
+                                Inventory Analytics
                             </h3>
 
                             <p className="text-slate-300">
-                                Predict future stock demand.
+                                Analyze sales and stock performance.
                             </p>
 
                         </div>
@@ -170,7 +170,7 @@ function Login() {
 
                     <p className="mt-2 text-slate-500">
 
-                        Sign in to continue to Inventra AI
+                        Sign in to continue to StockFlow
 
                     </p>
 

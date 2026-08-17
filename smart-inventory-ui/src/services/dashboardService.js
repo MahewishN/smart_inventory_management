@@ -129,7 +129,7 @@ export const downloadDashboardPdf = async () => {
     const link = document.createElement("a");
 
     link.href = url;
-    link.download = "SmartShelfX-Dashboard-Report.pdf";
+    link.download = "StockFlow-Dashboard-Report.pdf";
 
     document.body.appendChild(link);
 
