@@ -1,0 +1,52 @@
+spring.application.name=smart-inventory
+
+# =========================================================
+# Server Configuration
+# =========================================================
+server.port=8080
+
+
+# =========================================================
+# MySQL Database Configuration
+# =========================================================
+# Make sure MySQL is running before starting the application.
+# Replace the username and password with your local MySQL credentials.
+
+spring.datasource.url=jdbc:mysql://localhost:3306/smart_inventory
+spring.datasource.username=YOUR_MYSQL_USERNAME
+spring.datasource.password=YOUR_MYSQL_PASSWORD
+
+
+# =========================================================
+# Hibernate / JPA Configuration
+# =========================================================
+# Creates or updates tables based on your JPA entities.
+spring.jpa.hibernate.ddl-auto=update
+
+# Shows SQL queries in the console.
+spring.jpa.show-sql=true
+
+# Formats SQL queries for better readability.
+spring.jpa.properties.hibernate.format_sql=true
+
+# MySQL dialect
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+
+
+# =========================================================
+# JWT Configuration
+# =========================================================
+# Replace this with a strong secret key for local development.
+
+app.jwt.secret=YOUR_JWT_SECRET
+
+# JWT expiration time in milliseconds.
+# 86400000 = 24 hours
+app.jwt.expiration=86400000
+
+
+# =========================================================
+# Logging
+# =========================================================
+logging.level.org.springframework.security=INFO
+
